@@ -6,26 +6,20 @@ import router from './router.js'
 // import users from './leancloud'
 import users from './globle'
 import ElementUI from 'element-ui'
+import axios from 'axios'
+import md5 from 'js-md5' 
 import 'element-ui/lib/theme-chalk/index.css'
 import 'normalize.css'
 import './assets/scss/reset.scss'
 
 Vue.use(ElementUI)
 // Vue.use(users)
+Vue.prototype.$axios = axios
+Vue.prototype.$md5 = md5
 
 Vue.config.productionTip = false
 
-// console.log(users)
-// console.log(xxx)
-
-/* eslint-disable no-new */
-// new Vue({
-//   router,users,
-//   el: '#app',
-//   conponents: {App},
-//   template: '<App/>'
-// })
-
+// console.log(md5)
 
 const app = new Vue({
   el: '#app',

@@ -1,7 +1,13 @@
 <template>
   <div id="home">
+    <el-button @click="dialogVisible = true">新增</el-button>
+    <el-dialog title="提示" :visible.sync="dialogVisible" width="30%" :before-close="handleClose" center>
+      <span class="btns">
+        <el-button type="primary" @click="dialogVisible = false">预售</el-button>
+        <el-button type="primary" @click="dialogVisible = false">直采</el-button>
+      </span>
+    </el-dialog>
 
-    <el-button>新增</el-button>
     <el-table :data="tableData" stripe style="width: 100%">
       <el-table-column prop="name" label="商品名称" width="180">
       </el-table-column>
@@ -17,17 +23,15 @@
       </el-table-column>
       <el-table-column prop="status" label="当前状态">
       </el-table-column>
-      <el-table-column
-      fixed="right"
-      label="操作"
-      >
-      <template slot-scope="scope">
-        <el-button @click="handleClick(scope.row)" type="text" size="small">查看详情</el-button>
-        <el-button type="text" size="small">发布</el-button>
-        <el-button type="text" size="small">隐藏</el-button>
-      </template>
-    </el-table-column>
+      <el-table-column fixed="right" label="操作">
+        <template slot-scope="scope">
+          <el-button @click="handleClick(scope.row)" type="text" size="small">查看详情</el-button>
+          <el-button type="text" size="small">发布</el-button>
+          <el-button type="text" size="small">隐藏</el-button>
+        </template>
+      </el-table-column>
     </el-table>
+    <button @click="fetchData">获取数据</button>
   </div>
 </template>
 
@@ -37,21 +41,43 @@ export default {
   components: {},
   data() {
     return {
-       tableData: [{
-          id:'',
-          status: '',
-          type:'',
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄',
-          stock:'',
-          sold:'',
-          publishTime: '',
-          lowerTime: '',
-          isShow: '',
-        }],
-
+      tableData: [
+        {
+          id: "",
+          status: "",
+          type: "",
+          date: "2016-05-02",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄",
+          stock: "",
+          sold: "",
+          publishTime: "",
+          lowerTime: "",
+          isShow: ""
+        }
+      ],
+      dialogVisible: false
     };
+  },
+  methods: {
+    fetchData() {
+      this.$axios
+        .post("http://back.nmbjvip.com/api/user/admin/adminLogin")
+        .then(function(response) {
+          console.log(response);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    handleClose(done) {
+        this.$confirm('确认关闭？')
+          .then(_ => {
+            done();
+          })
+          .catch(_ => {});
+      },
+      
   }
 };
 </script>
@@ -65,10 +91,7 @@ export default {
   // display: flex;
   // flex-direction: column;
 }
-
-main {
-  // display: flex;
-  // flex: 1;
-  // padding-top: 16px;
+.btns{
+  margin: 0 auto;
 }
 </style>

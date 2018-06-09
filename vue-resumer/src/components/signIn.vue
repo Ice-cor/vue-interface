@@ -4,7 +4,7 @@
       <h3>登陆</h3>
       <el-form status-icon label-width="80px" :label-position="'left'">
         <el-form-item label="用户名">
-          <el-input type="username" v-model="formDate2.username"></el-input>
+          <el-input type="username" v-model="formDate2.userName"></el-input>
         </el-form-item>
         <el-form-item label="密码">
           <el-input type="password" v-model="formDate2.password"></el-input>
@@ -26,12 +26,8 @@ import AV from "../globle.vue";
 export default {
   data() {
     return {
-      formDate: {
-        username: "",
-        password: ""
-      },
       formDate2: {
-        username: "",
+        userName: "",
         password: ""
       },
       formVisible: true
@@ -44,20 +40,20 @@ export default {
       }
     },
     submitForm2() {
-      let Users = AV.Object.extend("User");
-      let users = new Users();
-      console.log(this.formDate2.username);
-      users.logIn(this.formDate2.username, this.formDate2.password).then(
-        (a)=>{
-          alert("登陆成功");
-          console.log(a)
-          this.$router.push({path: '/'})
-        },
-        function(b) {
-          console.log(b);
-        }
-      );
-      // alert(111)
+      let password = this.$md5(this.formDate2.password);
+
+      let json = JSON.stringify({
+        password: password,
+        userName: this.formDate2.userName
+      });
+      console.log(json, "json");
+      this.$axios.post("http://back.nmbjvip.com/api/user/admin/adminLogin", json)
+        .then(function(response) {
+          console.log(response);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     }
   }
 };
@@ -75,7 +71,7 @@ style
     box-shadow: 0px 0px 5px #888888;
     padding: 24px 32px;
     border-radius: 10px;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     > h3 {
       text-align: center;
       margin-bottom: 20px;

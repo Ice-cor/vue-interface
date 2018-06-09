@@ -4,6 +4,7 @@ import Hello from './components/HelloWorld'
 import Home from './home'
 import SignUp from './components/signUp'
 import SignIn from './components/signIn'
+import ListInfo from './listInfo'
 
 Vue.use(Router)
 
@@ -20,6 +21,10 @@ export default new Router({
       {
         path:'/signin',
         component:SignIn
-    }
+      },
+      {
+          path: '/listinfo',
+          component: ListInfo
+      }
   ]
 })

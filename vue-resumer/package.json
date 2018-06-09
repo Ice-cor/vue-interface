@@ -10,7 +10,9 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "element-ui": "^2.4.0",
+    "js-md5": "^0.7.3",
     "leancloud-storage": "^3.7.1",
     "normalize.css": "^8.0.0",
     "vue": "^2.5.2"
