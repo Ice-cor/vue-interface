@@ -41,19 +41,22 @@ export default {
     },
     submitForm2() {
       let password = this.$md5(this.formDate2.password);
+      // let json = {password: password,userName:this.formDate2.userName}
 
       let json = JSON.stringify({
         password: password,
         userName: this.formDate2.userName
       });
+      //我先用JSON转译了一次了
       console.log(json, "json");
-      this.$axios.post("http://back.nmbjvip.com/api/user/admin/adminLogin", json)
-        .then(function(response) {
-          console.log(response);
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+      
+      this.$axios.post("http://back.nmbjvip.com/api/user/admin/adminLogins",json
+      );
+      
+      //就是这里，要传json到后端，而不是表单数据/////////////
+
+      // console.dir(this.$http)
+      // this.$http.post('http://back.nmbjvip.com/api/user/admin/adminLogins', json).then((s)=>{console.log(s)}, (error)=>{console.log(error)});
     }
   }
 };

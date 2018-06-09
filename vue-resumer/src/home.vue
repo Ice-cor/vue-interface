@@ -3,7 +3,7 @@
     <el-button @click="dialogVisible = true">新增</el-button>
     <el-dialog title="提示" :visible.sync="dialogVisible" width="30%" :before-close="handleClose" center>
       <span class="btns">
-        <el-button type="primary" @click="dialogVisible = false">预售</el-button>
+        <el-button type="primary" @click="toListInfo">预售</el-button>
         <el-button type="primary" @click="dialogVisible = false">直采</el-button>
       </span>
     </el-dialog>
@@ -31,7 +31,6 @@
         </template>
       </el-table-column>
     </el-table>
-    <button @click="fetchData">获取数据</button>
   </div>
 </template>
 
@@ -60,16 +59,6 @@ export default {
     };
   },
   methods: {
-    fetchData() {
-      this.$axios
-        .post("http://back.nmbjvip.com/api/user/admin/adminLogin")
-        .then(function(response) {
-          console.log(response);
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    },
     handleClose(done) {
         this.$confirm('确认关闭？')
           .then(_ => {
@@ -77,7 +66,10 @@ export default {
           })
           .catch(_ => {});
       },
-      
+    toListInfo(){
+      this.dialogVisible =  false
+      this.$router.push({ path: "/listinfo" });
+    }
   }
 };
 </script>
